@@ -49,7 +49,7 @@ def update(val):
     new_x = theta * x_1 + (1 - theta) * x_2  # 计算凸组合点坐标
     scatter_point.set_offsets(np.array([new_x]))  # 直接更新散点位置
     text_label.set_position((new_x[0] + 0.1, new_x[1]))  # 更新文本位置
-    text_label.set_text(r"$\theta_1=$"+f"{round(theta, 2)}, " + r"$\theta_1=$"+f"{round(1-theta, 2)}")  # 更新文本内容
+    text_label.set_text(r"$\theta_1=$"+f"{round(theta, 2)}, " + r"$\theta_2=$"+f"{round(1-theta, 2)}")  # 更新文本内容
     fig.canvas.draw_idle()  # 刷新画布
 
 
