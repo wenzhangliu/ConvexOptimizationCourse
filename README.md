@@ -31,7 +31,7 @@ conda activate cvxopt
 本课程主要涉及数学工具python包``matplotlib``和``numpy``，建议版本安装指令如下：
 
 ```bash
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 完成安装后，即可运行本项目下的任何代码。如有任何问题，欢迎在[**Issue**](https://github.com/wenzhangliu/ConvexOptimizationCourse/issues)栏目提问。
