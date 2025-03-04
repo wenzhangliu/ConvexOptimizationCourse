@@ -14,7 +14,7 @@ import numpy as np
 
 def parse_args():
     parser = argparse.ArgumentParser("Convex Optimization.")
-    parser.add_argument("--step", type=float, default=0.5)  # 采样步长
+    parser.add_argument("--step", type=float, default=0.3)  # 采样步长
     parser.add_argument("--N-base", type=int, default=4)  # 基点个数
     return parser.parse_args()
 
@@ -37,18 +37,18 @@ if __name__ == '__main__':
     for i in range(num_base_points):
         ax.text(x[i], y[i], z[i], labels[i])
 
-    theta_1_set = np.arange(0.0, 2.0, step=step)
-    theta_2_set = np.arange(0.0, 2.0, step=step)
-    theta_3_set = np.arange(0.0, 2.0, step=step)
-    theta_4_set = np.arange(0.0, 2.0, step=step)
+    theta_1_set = np.arange(0.0, 1.2, step=step)
+    theta_2_set = np.arange(0.0, 1.2, step=step)
+    theta_3_set = np.arange(0.0, 1.2, step=step)
+    theta_4_set = np.arange(0.0, 1.2, step=step)
     base_points = np.stack([x[:num_base_points], y[:num_base_points], z[:num_base_points]], axis=-1)
     for theta_1 in theta_1_set:
         for theta_2 in theta_2_set:
             for theta_3 in theta_3_set:
                 for theta_4 in theta_4_set:
                     theta = np.array([theta_1, theta_2, theta_3, theta_4]).reshape(-1, 1)
-                    new_point = theta * base_points
-                    ax.scatter(new_point[:, 0], new_point[:, 1], new_point[:, 2], c='blue', s=20)
+                    new_point = (theta * base_points).sum(0)
+                    ax.scatter(*new_point, c='blue', s=20)
 
     # 设置坐标轴显示范围
     ax.set_xlim(0, 4)
