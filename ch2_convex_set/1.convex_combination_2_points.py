@@ -40,7 +40,7 @@ text_label = ax.text(initial_x[0] + 0.1, initial_x[1], r"$\theta_1=0.0, \theta_2
 
 # 创建滑动条
 ax_slider = fig.add_axes([0.2, 0.1, 0.65, 0.03])
-slider = Slider(ax=ax_slider, label=r"$\theta$", valmin=0, valmax=1.0, valinit=0.0, orientation="horizontal")
+slider = Slider(ax=ax_slider, label=r"$\theta_1$", valmin=0, valmax=1.0, valinit=0.0, orientation="horizontal")
 
 
 # 更新函数
@@ -60,7 +60,7 @@ def reset(event):
 # 绑定滑动条事件和重置事件
 slider.on_changed(update)
 resetax = fig.add_axes([0.8, 0.025, 0.1, 0.04])
-button = Button(resetax, r'重置$\theta=0.0$', hovercolor='0.975')
+button = Button(resetax, r'重置$\theta_1=0.0$', hovercolor='0.975')
 button.on_clicked(reset)
 
 # 显示图形
