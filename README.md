@@ -2,11 +2,11 @@
 
 课程简介：安徽大学人工智能专业本科必修课程。
 
-授课教师：柳文章
+授课教师：柳文章（教师主页：[https://ai.ahu.edu.cn/2025/0224/c19213a357831/page.htm](https://ai.ahu.edu.cn/2025/0224/c19213a357831/page.htm)）
 
 代码语言：Python
 
-主要工具包：matplotlib
+主要工具包：[matplotlib](https://matplotlib.org/)
 
 代码地址：https://github.com/wenzhangliu/ConvexOptimizationCourse
 
