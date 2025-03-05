@@ -14,7 +14,7 @@ import numpy as np
 
 def parse_args():
     parser = argparse.ArgumentParser("Convex Optimization.")
-    parser.add_argument("--N", type=int, default=10)  # 随机生成的点集个数
+    parser.add_argument("--N", type=int, default=10000)  # 随机生成的点集个数
     return parser.parse_args()
 
 

@@ -14,7 +14,7 @@ import numpy as np
 
 def parse_args():
     parser = argparse.ArgumentParser("Convex Optimization.")
-    parser.add_argument("--step", type=float, default=0.20)  # 步长
+    parser.add_argument("--step", type=float, default=0.10)  # 步长
     return parser.parse_args()
 
 
@@ -27,7 +27,7 @@ if __name__ == '__main__':
     x_2 = np.array([3.0, 3.0])  # 点x_2的坐标（二维）
     x_3 = np.array([2.0, 1.0])  # 点x_3的坐标（二维）
 
-    plt.title('凸锥示例')
+    plt.title('锥组合')
     plt.xlim([0, 4.0])
     plt.ylim([0, 5.0])
     plt.grid()
