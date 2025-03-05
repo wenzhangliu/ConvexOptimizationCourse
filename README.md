@@ -1,34 +1,34 @@
 # 《最优化方法》--代码演示
 
-课程简介：安徽大学人工智能专业本科必修课程。
+课程简介: 安徽大学人工智能专业本科必修课程。
 
-授课教师：柳文章（教师主页：[https://ai.ahu.edu.cn/2025/0224/c19213a357831/page.htm](https://ai.ahu.edu.cn/2025/0224/c19213a357831/page.htm)）
+授课教师: 柳文章（教师主页: [https://ai.ahu.edu.cn/2025/0224/c19213a357831/page.htm](https://ai.ahu.edu.cn/2025/0224/c19213a357831/page.htm)）
 
-代码语言：Python
+代码语言: Python
 
-主要工具包：[matplotlib](https://matplotlib.org/)
+主要工具包: [matplotlib](https://matplotlib.org/)
 
-代码地址：https://github.com/wenzhangliu/ConvexOptimizationCourse
+代码地址: https://github.com/wenzhangliu/ConvexOptimizationCourse
 
 ## 安装方法
 
-### 步骤1：配置并激活Conda环境
+### 步骤1: 配置并激活Conda环境
 
-首先安装Anaconda，并在终端输入如下指令配置Conda环境，建议Python版本为3.10，名字自定义（如cvxopt）：
+首先安装Anaconda，并在终端输入如下指令配置Conda环境，建议Python版本为3.10，名字自定义（如cvxopt）: 
 
 ```bash
 conda create -n cvxopt python=3.10
 ```
 
-配置完成后，激活该环境：
+配置完成后，激活该环境: 
 
 ```bash
 conda activate cvxopt
 ```
 
-### 步骤2：安装依赖包
+### 步骤2: 安装依赖包
 
-本课程主要涉及数学工具python包``matplotlib``和``numpy``，建议版本安装指令如下：
+本课程主要涉及数学工具python包``matplotlib``和``numpy``，建议版本安装指令如下: 
 
 ```bash
 pip install -r requirements.txt
@@ -38,35 +38,35 @@ pip install -r requirements.txt
 
 ## 课程大纲
 
-- 第一章：引言
+- 第一章: 引言
   - 优化/数学规划
   - 全局最优与局部最优
   - 优化问题的分类
   - 案例解析
-- 第二章：凸集
+- 第二章: 凸集
   - 向量求导与范数
   - 仿射集、凸集、凸锥
   - 保凸变换
-- 第三章：凸函数
+- 第三章: 凸函数
   - 凸函数的定义
   - 保凸运算
   - 拟凸运算
-- 第四章：凸优化问题
+- 第四章: 凸优化问题
   - 优化问题
   - 凸优化问题
   - 线性规划
   - 多目标优化
-- 第五章：对偶性
+- 第五章: 对偶性
   - 拉格朗日对偶
   - 几种解释
   - KKT条件
   - 敏感性分析
-- 第六章：无约束优化
+- 第六章: 无约束优化
   - 无约束优化问题
   - 梯度下降法
   - 最速下降法
   - 牛顿法
-- 第七章：等式约束优化
+- 第七章: 等式约束优化
   - 等式约束优化问题
   - 拉格朗日法
   - 增广拉格朗日法

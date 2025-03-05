@@ -1,11 +1,11 @@
 """
 《最优化方法》
-第二章：凸集
-授课教师：柳文章
-代码演示：凸组合，四个点，其中x_2是三角形（x_1, x_3, x_4）的内点。
-代码语言：Python
-主要工具包：matplotlib.pyplot
-代码地址：https://github.com/wenzhangliu/ConvexOptimizationCourse
+第二章: 凸集
+授课教师: 柳文章
+代码演示: 凸组合，四个点，其中x_2是三角形（x_1, x_3, x_4）的内点。
+代码语言: Python
+主要工具包: matplotlib.pyplot
+代码地址: https://github.com/wenzhangliu/ConvexOptimizationCourse
 """
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button

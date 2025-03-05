@@ -1,11 +1,11 @@
 """
 《最优化方法》
-第二章：凸集
-授课教师：柳文章
-代码演示：凸包
-代码语言：Python
-主要工具包：matplotlib, scipy
-代码地址：https://github.com/wenzhangliu/ConvexOptimizationCourse
+第二章: 凸集
+授课教师: 柳文章
+代码演示: 凸包
+代码语言: Python
+主要工具包: matplotlib, scipy
+代码地址: https://github.com/wenzhangliu/ConvexOptimizationCourse
 """
 import numpy as np
 import matplotlib.pyplot as plt
