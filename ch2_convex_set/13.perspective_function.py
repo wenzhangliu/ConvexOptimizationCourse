@@ -2,129 +2,128 @@
 《最优化方法》
 第二章: 凸集
 授课教师: 柳文章
-代码演示: 透视函数
+代码演示: 透视函数（二维）
 代码语言: Python
 主要工具包: matplotlib.pyplot
 代码地址: https://github.com/wenzhangliu/ConvexOptimizationCourse
 """
-import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
-from matplotlib.widgets import Slider
+from matplotlib.widgets import Slider, Button
+import numpy as np
+
 plt.rcParams['font.family'] = 'Heiti TC'  # 设置中文字体
 
-# 创建 3D 画布
-fig = plt.figure()
-ax = fig.add_subplot(111, projection='3d')
+# 创建图形和轴
+fig, ax = plt.subplots(figsize=(6, 8))
+plt.subplots_adjust(bottom=0.25)  # 给滑动条预留空间
+plt.title('透视函数（二维）')
+plt.xlim([-4, 4])
+plt.ylim([-4, 4])
+ax.axhline(y=0, color='black', linewidth=0.1)  # X 轴
+ax.axvline(x=0, color='black', linewidth=0.1)  # Y 轴
+X = np.linspace(-4, 4, 100)
+X_Gound_0 = np.linspace(-4, -0.1, 50)
+X_Gound_1 = np.linspace(0.1, 4, 50)
+Y_Ground_0 = np.full_like(X_Gound_0, 0)
+Y_Ground_1 = np.full_like(X_Gound_1, 0)
 
-# 绘制一个平面 z=1
-x = np.linspace(-3, 3, 10)
-y = np.linspace(-3, 3, 10)
-X, Y = np.meshgrid(x, y)
-z_initial = 1  # 初始z值
-Z = np.full_like(X, z_initial)
-Z_ground = np.full_like(X, 0)
-Z_phase = np.full_like(X, -1)
+plane_ground_0 = ax.plot(X_Gound_0, Y_Ground_0, color='black', linewidth=2)  # 绘制地平线
+plane_ground_0 = ax.plot(X_Gound_1, Y_Ground_1, color='black', linewidth=2)  # 绘制地平线
 
-plane = ax.plot_surface(X, Y, Z, color='cyan', alpha=0.5)  # 绘制初始平面
-plane_phase = ax.plot_surface(X, Y, Z_phase, color='cyan', alpha=0.5)  # 绘制初始平面的相平面
-plane_ground = ax.plot_surface(X, Y, Z_ground, color='gray', alpha=0.8)  # 绘制初始平面
+# 相平面
+y_init_phase = -1.0
+y_phase = np.full_like(X, y_init_phase)
+plane_phase, = ax.plot(X, y_phase, color='gray', linewidth=2)
 
-# 圆的半径
-radius = 1.0  
-# 生成极坐标
-theta = np.linspace(0, 2 * np.pi, 100)  # 角度范围 [0, 2π]
-r = np.linspace(0, radius, 50)  # 半径范围
+# 箭头起始点
+y_init = 1.0
+arrow_vector = np.array([2, 0])
+x_A, y_A = -1, y_init  # 箭头起始点
+x_B, y_B = x_A + arrow_vector[0], y_A + arrow_vector[1]  # 箭头终点
+arrow = ax.annotate("", xy=(x_B, y_B), xytext=(x_A, y_A), arrowprops=dict(arrowstyle="->", linewidth=2, color="red"))
+arrow_vector_phase = arrow_vector * y_init_phase / y_init
+x_A_phase, y_A_phase = x_A * y_init_phase / y_init, y_A * y_init_phase / y_init  # 箭头起始点
+x_B_phase, y_B_phase = x_B * y_init_phase / y_init, y_B * y_init_phase / y_init  # 箭头终点
+arrow_phase = ax.annotate("", xy=(x_B_phase, y_B_phase), xytext=(x_A_phase, y_A_phase), arrowprops=dict(arrowstyle="->", linewidth=2, color="tomato"))
 
-# 将极坐标转换为直角坐标
-Theta, R = np.meshgrid(theta, r)
-X_circle = R * np.cos(Theta)
-Y_circle = R * np.sin(Theta)
-Z_circle = np.full_like(X_circle, z_initial)  # Z 轴固定值
-X_circle_phase = -X_circle / z_initial
-Y_circle_phase = -Y_circle / z_initial
-Z_circle_phase = np.full_like(X_circle, -1)  # Z 轴固定值 -1
+line_A_1, = ax.plot([0, x_A], [0, y_A], linestyle='--', color='gray', linewidth=1)
+line_A_2, = ax.plot([0, x_A_phase], [0, y_A_phase], linestyle='--', color='gray', linewidth=1)
+line_B_1, = ax.plot([0, x_B], [0, y_B], linestyle='--', color='gray', linewidth=1)
+line_B_2, = ax.plot([0, x_B_phase], [0, y_B_phase], linestyle='--', color='gray', linewidth=1)
 
-# 绘制小孔
-radius_hole = 0.1
-theta_hole = np.linspace(0, 2 * np.pi, 10)  # 角度范围 [0, 2π]
-r_hole = np.linspace(0, radius_hole, 50)  # 半径范围
-Theta_hole, R_hole = np.meshgrid(theta_hole, r_hole)
-X_circle_hole = R_hole * np.cos(Theta_hole)
-Y_circle_hole = R_hole * np.sin(Theta_hole)
-Z_circle_hole = np.full_like(X_circle_hole, 0)  # Z 轴固定值
-circle_hole = ax.plot_surface(X_circle_hole, Y_circle_hole, Z_circle_hole, color='black', alpha=0.7)
+# 创建滑动条
+ax_slider = fig.add_axes([0.15, 0.15, 0.50, 0.03])
+slider = Slider(ax=ax_slider, label=r"图像位置", valmin=-4.0, valmax=4.0, valinit=y_init, orientation="horizontal")
 
-# 绘制圆形
-circle = ax.plot_surface(X_circle, Y_circle, Z_circle, color='red', alpha=0.7)
-circle_ground = ax.plot_surface(X_circle_phase, Y_circle_phase, Z_circle_phase, color='darkred', alpha=1.0)
+ax_slider_phase = fig.add_axes([0.15, 0.05, 0.50, 0.03])
+slider_phase = Slider(ax=ax_slider_phase, label=r"相平面位置", valmin=-4.0, valmax=4.0, valinit=y_init_phase, orientation="horizontal")
+text = ax.text(-4, y_init + 0.1, '物体')
+text_phase = ax.text(-4, y_init_phase + 0.1, '相平面')
 
-# 绘制三角形
-# 三角形的三个顶点 (x, y, z)
-triangle_vertices = np.array([
-    [1, 0, z_initial],  # 点 A
-    [2, 1, z_initial],  # 点 B
-    [2, -1, z_initial] # 点 C
-])
-triangle_vertices_phase = np.array([
-    [-1, 0, -1],  # 点 A
-    [-2, -1, -1],  # 点 B
-    [-2, 1, -1] # 点 C
-])
-triangle = ax.add_collection3d(Poly3DCollection([triangle_vertices], color='red', alpha=0.7))
-triangle_phase = ax.add_collection3d(Poly3DCollection([triangle_vertices_phase], color='darkred', alpha=1.0))
+reset_ax_1 = fig.add_axes([0.75, 0.15, 0.1, 0.03])
+reset_ax_2 = fig.add_axes([0.75, 0.05, 0.1, 0.03])
 
-# 添加滑块
-ax_slider = plt.axes([0.2, 0.02, 0.6, 0.03])  # 滑块位置
-z_slider = Slider(ax_slider, "Z 值", -5, 5, valinit=1)  # 设定初始值为1
-
-# 更新函数
 def update(val):
-    global plane, circle, circle_ground, triangle, triangle_phase  # 需要修改全局变量
-    new_c = z_slider.val
-    plane.remove()  # 移除旧的超平面
-    circle.remove()  # 移除旧的圆
-    circle_ground.remove()  # 移除旧的投影圆
-    triangle.remove()  # 移除旧的三角形
-    triangle_phase.remove()  # 移除旧的三角形的相平面
+    global y_init, x_A, x_B, y_A, y_B, x_A_phase, x_B_phase, y_A_phase, y_B_phase
+    y_init = slider.val
 
-    plane = ax.plot_surface(X, Y, np.full_like(X, new_c), color='cyan', alpha=0.5)  # 重新绘制
-
-    Z_circle = np.full_like(X_circle, new_c)  # 更新圆的高度
-    Z_circle = np.full_like(X_circle, new_c)  # 更新圆的高度
-    circle = ax.plot_surface(X_circle, Y_circle, Z_circle, color='red', alpha=0.7)
-
-    X_circle_phase = -X_circle / new_c
-    Y_circle_phase = -Y_circle / new_c
-    circle_ground = ax.plot_surface(X_circle_phase, Y_circle_phase, Z_circle_phase, color='darkred', alpha=1.0)
-
-    # 三角形的三个顶点 (x, y, z)
-    triangle_vertices = np.array([
-        [1, 0, new_c],  # 点 A
-        [2, 1, new_c],  # 点 B
-        [2, -1, new_c] # 点 C
-    ])
-    triangle_vertices_phase = np.array([
-        [-1 / new_c, 0 / new_c, -1],  # 点 A
-        [-2 / new_c, -1 / new_c, -1],  # 点 B
-        [-2 / new_c, 1 / new_c, -1] # 点 C
-    ])
-    triangle = ax.add_collection3d(Poly3DCollection([triangle_vertices], color='red', alpha=0.7))
-    triangle_phase = ax.add_collection3d(Poly3DCollection([triangle_vertices_phase], color='darkred', alpha=1.0))
+    y_A = y_init  # 箭头起始点
+    x_B, y_B = x_A + arrow_vector[0], y_A + arrow_vector[1]  # 箭头终点
+    x_A_phase, y_A_phase = x_A * y_init_phase / y_init, y_init_phase  # 箭头起始点
+    x_B_phase, y_B_phase = x_B * y_init_phase / y_init, y_init_phase  # 箭头终点
     
+    arrow.set_position((x_A, y_A))
+    arrow.xy = (x_B, y_B)
+    arrow_phase.set_position((x_A_phase, y_A_phase))
+    arrow_phase.xy = (x_B_phase, y_B_phase)
+
+    line_A_1.set_data([0, x_A], [0, y_A])
+    line_A_2.set_data([0, x_A_phase], [0, y_A_phase])
+    line_B_1.set_data([0, x_B], [0, y_B])
+    line_B_2.set_data([0, x_B_phase], [0, y_B_phase])
+
+    text.set_position((-4, y_init))
+
     fig.canvas.draw_idle()  # 刷新画布
 
-# 绑定滑块更新事件
-z_slider.on_changed(update)
+def update_phase(val):
+    global y_init_phase, x_A, x_B, y_A, y_B, x_A_phase, x_B_phase, y_A_phase, y_B_phase
+    y_init_phase = slider_phase.val
+    plane_phase.set_ydata(np.full_like(X, y_init_phase))
 
-ax.set_xlim(-3, 3)
-ax.set_ylim(-3, 3)
-ax.set_zlim(-2, 2)
+    x_A_phase, y_A_phase = x_A * y_init_phase / y_init, y_init_phase  # 箭头起始点
+    x_B_phase, y_B_phase = x_B * y_init_phase / y_init, y_init_phase  # 箭头终点
+    
+    arrow.set_position((x_A, y_A))
+    arrow.xy = (x_B, y_B)
+    arrow_phase.set_position((x_A_phase, y_A_phase))
+    arrow_phase.xy = (x_B_phase, y_B_phase)
 
-ax.set_xlabel("X 轴")
-ax.set_ylabel("Y 轴")
-ax.set_zlabel("Z 轴")
-ax.set_title("透视函数演示")
+    line_A_1.set_data([0, x_A], [0, y_A])
+    line_A_2.set_data([0, x_A_phase], [0, y_A_phase])
+    line_B_1.set_data([0, x_B], [0, y_B])
+    line_B_2.set_data([0, x_B_phase], [0, y_B_phase])
 
-ax.grid(False)
+    text_phase.set_position((-4, y_init_phase + 0.1))
+
+    fig.canvas.draw_idle()  # 刷新画布
+
+
+def reset_1(event):
+    slider.reset()
+
+
+def reset_2(event):
+    slider_phase.reset()
+
+
+# 绑定滑动条事件和重置事件
+slider.on_changed(update)
+slider_phase.on_changed(update_phase)
+button_1 = Button(reset_ax_1, '重置', hovercolor='0.975')
+button_2 = Button(reset_ax_2, '重置', hovercolor='0.975')
+button_1.on_clicked(reset_1)
+button_2.on_clicked(reset_2)
+
+# 显示图形
 plt.show()
