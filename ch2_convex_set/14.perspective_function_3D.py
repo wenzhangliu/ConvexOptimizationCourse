@@ -1,6 +1,6 @@
 """
 《最优化方法》
-第二章: 凸集
+第二章: 凸集（保凸变换）
 授课教师: 柳文章
 代码演示: 透视函数（三维）
 代码语言: Python
@@ -157,7 +157,7 @@ ax.set_zlim(-2, 2)
 ax.set_xlabel("X 轴")
 ax.set_ylabel("Y 轴")
 ax.set_zlabel("Z 轴")
-ax.set_title("透视函数演示")
+ax.set_title("保凸变换：透视函数演示（三维）")
 
 ax.grid(False)
 plt.show()

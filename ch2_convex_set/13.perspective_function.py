@@ -1,6 +1,6 @@
 """
 《最优化方法》
-第二章: 凸集
+第二章: 凸集（保凸变换）
 授课教师: 柳文章
 代码演示: 透视函数（二维）
 代码语言: Python
@@ -16,7 +16,7 @@ plt.rcParams['font.family'] = 'Heiti TC'  # 设置中文字体
 # 创建图形和轴
 fig, ax = plt.subplots(figsize=(6, 8))
 plt.subplots_adjust(bottom=0.25)  # 给滑动条预留空间
-plt.title('透视函数（二维）')
+plt.title('保凸变换：透视函数演示（二维）')
 plt.xlim([-4, 4])
 plt.ylim([-4, 4])
 ax.axhline(y=0, color='black', linewidth=0.1)  # X 轴
